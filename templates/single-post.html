@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>jBlog</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/bg-img/j.png' %}" />
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+  </head>
+
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="preload-content">
+        <div id="original-load"></div>
+      </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area" style="background-color: #a6b9b9">
+      <!-- Top Header Area -->
+      <div class="top-header">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <!-- Breaking News Area -->
+            <div class="col-12 col-sm-8">
+              <div class="breaking-news-area">
+                <div id="breakingNewsTicker" class="ticker">
+                  <ul>
+                    <li><a href="{% url 'home' %}">Hello World!</a></li>
+                    <li><a href="{% url 'home' %}">Python</a></li>
+                    <li><a href="{% url 'home' %}">Web</a></li>
+                    <li><a href="{% url 'home' %}">Programming</a></li>
+                    <li><a href="{% url 'home' %}">Django</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Top Social Area -->
+            <div class="col-12 col-sm-4">
+              <div class="top-social-area">
+                <a
+                  href="https://github.com/jssmid"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Github"
+                  ><i class="fa fa-github" aria-hidden="true"></i
+                ></a>
+                <a
+                  href="mailto:jassim.idcharif@gmail.com"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Email"
+                  ><i class="fa fa-envelope" aria-hidden="true"></i
+                ></a>
+                <a
+                  href="https://www.linkedin.com/in/jassim-id-charif"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Linkedin"
+                  ><i class="fa fa-linkedin" aria-hidden="true"></i
+                ></a>
+                <a
+                  href="https://jassimidcharif.me"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Portfolio"
+                  ><i class="fa fa-id-card" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav Area -->
+      <div class="original-nav-area" id="stickyNav">
+        <div class="classy-nav-container breakpoint-off">
+          <div class="container">
+            <!-- Classy Menu -->
+            <nav class="classy-navbar justify-content-between">
+              <!-- Navbar Toggler -->
+              <div class="classy-navbar-toggler">
+                <span class="navbarToggler"
+                  ><span></span><span></span><span></span
+                ></span>
+              </div>
+
+              <!-- Menu -->
+              <div class="classy-menu" id="originalNav">
+                <!-- close btn -->
+                <div class="classycloseIcon">
+                  <div class="cross-wrap">
+                    <span class="top"></span><span class="bottom"></span>
+                  </div>
+                </div>
+
+                <!-- Nav Start -->
+                <div class="classynav">
+                  <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+
+                    <li><a href="{% url 'about-me' %}">About Me</a></li>
+
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                  </ul>
+
+                  <!-- Search Form  -->
+                  <div id="search-wrapper">
+                    <form action="#">
+                      <input
+                        type="text"
+                        id="search"
+                        placeholder="Search something..."
+                        autocomplete="off"
+                      />
+                      <div id="close-icon"></div>
+                      <input class="d-none" type="submit" value="" />
+                    </form>
+                  </div>
+                </div>
+                <!-- Nav End -->
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <br />
+
+    <!-- ##### Single Blog Area Start ##### -->
+    <div class="single-blog-wrapper section-padding-0-100">
+      {% for post in posts %}
+      <div class="container">
+        <div class="row">
+          <!-- ##### Post Content Area ##### -->
+          <div class="col-12 col-lg-9">
+            <!-- Single Blog Area  -->
+
+            <div class="single-blog-area blog-style-2 mb-50">
+              <!-- Blog Content -->
+              <div class="single-blog-content">
+                <div class="line"></div>
+                <a href="{% url 'home' %}?q={{post.tag}}" class="post-tag"
+                  >{{ post.tag }}</a
+                >
+                <h4>
+                  <a href="#" class="post-headline mb-0">{{ post.title }}</a>
+                </h4>
+                <div class="post-meta mb-50">
+                  <p>By <a href="#">{{ post.author }}</a></p>
+                </div>
+                <p>{{ post.content|safe }}</p>
+              </div>
+            </div>
+            <!-- Comment Area Start -->
+            <div id="disqus_thread"></div>
+            <script>
+              var disqus_config = function () {
+                this.page.url = 'https://jblog.up.railway.app/article/{{post.slug}}/'; // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '{{post.slug}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+              };
+
+              (function () {
+                // DON'T EDIT BELOW THIS LINE
+                var d = document,
+                  s = d.createElement("script");
+                s.src = "https://my-blog-ecxhbwxl4t.disqus.com/embed.js";
+                s.setAttribute("data-timestamp", +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+            </script>
+            <noscript
+              >Please enable JavaScript to view the
+              <a href="https://disqus.com/?ref_noscript"
+                >comments powered by Disqus.</a
+              ></noscript
+            >
+            {% endfor %}
+          </div>
+
+          <!-- ##### Sidebar Area ##### -->
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="post-sidebar-area">
+              <!-- Widget Area -->
+              <div class="sidebar-widget-area">
+                <h5 class="title">Latest Posts</h5>
+                {% for latest_post in latest_posts %}
+                <div class="widget-content">
+                  <!-- Single Blog Post -->
+                  <div
+                    class="single-blog-post d-flex align-items-center widget-post"
+                  >
+                    <!-- Post Thumbnail -->
+                    <div class="post-thumbnail">
+                      <img src="{{ latest_post.image.url }}" alt="" />
+                    </div>
+                    <!-- Post Content -->
+                    <div class="post-content">
+                      <a
+                        href="{% url 'home' %}?q={{latest_post.tag}}"
+                        class="post-tag"
+                        >{{ latest_post.tag }}</a
+                      >
+                      <h4>
+                        <a
+                          href="{% url 'article' latest_post.slug %}"
+                          class="post-headline"
+                          >{{ latest_post.title }}</a
+                        >
+                      </h4>
+                      <div class="post-meta">
+                        <p><a href="#">{{ latest_post.created }}</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <!-- Widget Area -->
+              <div class="sidebar-widget-area">
+                <h5 class="title">Tags</h5>
+                <div class="widget-content">
+                  <ul class="tags">
+                    {% for tag in tags %}
+                    <li><a href="{% url 'home' %}?q={{tag}}">{{ tag }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ##### Single Blog Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Footer Nav Area -->
+            <div class="classy-nav-container breakpoint-off">
+              <!-- Classy Menu -->
+              <nav class="classy-navbar justify-content-center">
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                  <span class="navbarToggler"
+                    ><span></span><span></span><span></span
+                  ></span>
+                </div>
+
+                <!-- Menu -->
+                <div class="classy-menu">
+                  <!-- close btn -->
+                  <div class="classycloseIcon">
+                    <div class="cross-wrap">
+                      <span class="top"></span><span class="bottom"></span>
+                    </div>
+                  </div>
+
+                  <!-- Nav Start -->
+                  <div class="classynav">
+                    <ul>
+                      <li><a href="{% url 'home' %}">Home</a></li>
+                      <li><a href="{% url 'contact' %}">About Me</a></li>
+                      <li><a href="{% url 'about-me' %}">Contact</a></li>
+                    </ul>
+                  </div>
+                  <!-- Nav End -->
+                </div>
+              </nav>
+            </div>
+
+            <!-- Footer Social Area -->
+            <div class="footer-social-area mt-30">
+              <a
+                href="https://github.com/jssmid"
+                target="_blank"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Github"
+                ><i class="fa fa-github" aria-hidden="true"></i
+              ></a>
+              <a
+                href="mailto:jassim.idcharif@gmail.com"
+                target="_blank"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Email"
+                ><i class="fa fa-envelope" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://www.linkedin.com/in/jassim-id-charif"
+                target="_blank"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Linkedin"
+                ><i class="fa fa-linkedin" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://jassimidcharif.me"
+                data-toggle="tooltip"
+                target="_blank"
+                data-placement="top"
+                title="Portfolio"
+                ><i class="fa fa-id-card" aria-hidden="true"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Copyright &copy;
+      <script>
+        document.write(new Date().getFullYear());
+      </script>
+      All rights reserved
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+  
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="{% static 'scripts/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src=" {% static 'scripts/popper.min.js'%} "></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'scripts/bootstrap.min.js'%} "></script>
+    <!-- Plugins js -->
+    <script src="{% static 'scripts/plugins.js' %} "></script>
+    <!-- Active js -->
+    <script src="{% static 'scripts/active.js'%} "></script>
+  </body>
+</html>
